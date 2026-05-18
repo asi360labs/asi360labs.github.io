@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ASI360 Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#ffffff;--surface:#f6f5f2;--border:#e8e6e1;--border2:#d0cec9;--text:#0d0d0d;--muted:#9a9890;--muted2:#6b6965;--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'DM Mono',monospace;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(.16,1,.3,1),transform 0.8s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.05s;}.d2{transition-delay:.13s;}.d3{transition-delay:.21s;}.d4{transition-delay:.29s;}.d5{transition-delay:.37s;}.d6{transition-delay:.45s;}.d7{transition-delay:.53s;}.d8{transition-delay:.61s;}.d9{transition-delay:.69s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:64px;}
+.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:0.08em;color:var(--text);}
+.nav-logo span{opacity:0.35;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--muted2);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--text);color:#fff;border:none;padding:10px 22px;font-size:12px;font-family:var(--mono);letter-spacing:0.06em;cursor:pointer;transition:opacity 0.2s;}
+.nav-cta:hover{opacity:0.75;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;position:relative;overflow:hidden;}
+.hero-grid-lines{position:absolute;inset:0;pointer-events:none;}
+.hero-grid-lines::before{content:'';position:absolute;left:33.3%;top:0;width:1px;height:100%;background:var(--border);opacity:.7;}
+.hero-grid-lines::after{content:'';position:absolute;left:66.6%;top:0;width:1px;height:100%;background:var(--border);opacity:.7;}
+.hero-hline{position:absolute;left:0;width:100%;height:1px;background:var(--border);opacity:.7;top:45%;}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:3rem;display:flex;align-items:center;gap:10px;}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--muted);}
+.hero h1{font-family:var(--serif);font-size:clamp(54px,9vw,118px);font-weight:300;line-height:.98;letter-spacing:-0.03em;margin-bottom:2.8rem;max-width:900px;}
+.hero h1 b{font-weight:900;font-style:italic;}
+.hero-sub{font-family:var(--sans);font-size:clamp(15px,1.4vw,18px);color:var(--muted2);max-width:520px;line-height:1.85;margin-bottom:3.5rem;}
+.hero-actions{display:flex;align-items:center;gap:1.5rem;}
+.btn-primary{background:var(--text);color:#fff;border:none;padding:15px 34px;font-size:13px;font-family:var(--mono);letter-spacing:0.06em;cursor:pointer;transition:opacity 0.2s;}
+.btn-primary:hover{opacity:.75;}
+.btn-ghost{border:1px solid var(--border2);color:var(--muted2);background:none;padding:15px 34px;font-size:13px;font-family:var(--mono);letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;}
+.btn-ghost:hover{border-color:var(--text);color:var(--text);}
+.hero-counter{position:absolute;right:6vw;bottom:8vh;text-align:right;}
+.hero-counter-num{font-family:var(--serif);font-size:80px;font-weight:900;line-height:1;color:var(--border);}
+.hero-counter-label{font-family:var(--mono);font-size:9px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.hero-scroll{position:absolute;left:6vw;bottom:8vh;font-family:var(--mono);font-size:9px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.hero-scroll::after{content:'';width:1px;height:48px;background:var(--border2);}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:16px 0;background:var(--surface);}
+.ticker-inner{display:flex;gap:3rem;animation:ticker 40s linear infinite;width:max-content;}
+.ticker-item{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:10px;}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:var(--text);}
+@keyframes ticker{to{transform:translateX(-50%);}}
+
+/* EXPERTISE */
+.expertise{background:var(--text);padding:10vh 6vw;}
+.exp-header{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:end;margin-bottom:7vh;border-bottom:1px solid #2a2a2a;padding-bottom:4vh;}
+.exp-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:#555;text-transform:uppercase;margin-bottom:1.5rem;}
+.exp-title{font-family:var(--serif);font-size:clamp(34px,5vw,66px);font-weight:300;line-height:1.05;letter-spacing:-0.025em;color:#fff;}
+.exp-title b{font-weight:900;font-style:italic;}
+.exp-subtitle{font-family:var(--sans);font-size:clamp(14px,1.3vw,17px);color:#777;line-height:1.85;}
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #1e1e1e;}
+.exp-card{padding:2.4rem 2rem;border-right:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;transition:background 0.3s;}
+.exp-card:hover{background:#111;}
+.exp-card:nth-child(3n){border-right:none;}
+.exp-card:nth-last-child(-n+3){border-bottom:none;}
+.exp-num{font-family:var(--mono);font-size:9px;color:#333;letter-spacing:0.1em;margin-bottom:1.8rem;}
+.exp-name{font-family:var(--sans);font-size:17px;font-weight:600;color:#fff;margin-bottom:.7rem;line-height:1.25;}
+.exp-desc{font-family:var(--sans);font-size:13px;color:#666;line-height:1.75;}
+
+/* PRODUCTS */
+.products{padding:10vh 6vw;}
+.prod-header{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:end;margin-bottom:7vh;border-bottom:1px solid var(--border);padding-bottom:4vh;}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem;}
+.section-title{font-family:var(--serif);font-size:clamp(34px,5vw,66px);font-weight:300;line-height:1.05;letter-spacing:-0.025em;}
+.section-title b{font-weight:900;font-style:italic;}
+.section-sub{font-family:var(--sans);font-size:clamp(14px,1.3vw,17px);color:var(--muted2);line-height:1.85;}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);}
+.prod-card{padding:2.2rem 1.8rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);transition:background 0.25s;position:relative;overflow:hidden;cursor:pointer;}
+.prod-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--text);transition:width 0.4s ease;}
+.prod-card:hover::after{width:100%;}
+.prod-card:hover{background:var(--surface);}
+.prod-card:nth-child(3n){border-right:none;}
+.prod-card:nth-last-child(-n+3){border-bottom:none;}
+.prod-num{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.1em;margin-bottom:1.6rem;}
+.prod-icon{font-size:22px;margin-bottom:1.3rem;display:block;}
+.prod-name{font-family:var(--sans);font-size:17px;font-weight:600;margin-bottom:.6rem;line-height:1.2;}
+.prod-desc{font-family:var(--sans);font-size:12.5px;color:var(--muted2);line-height:1.75;}
+.prod-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.3rem;}
+.prod-tag{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.07em;border:1px solid var(--border);padding:4px 10px;background:var(--bg);}
+.prod-tag.on{border-color:var(--text);color:var(--text);}
+.prod-cta{margin-top:1.4rem;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.prod-card:hover .prod-cta{color:var(--text);}
+.prod-cta::after{content:'→';transition:transform 0.2s;}
+.prod-card:hover .prod-cta::after{transform:translateX(4px);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:500;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s ease,background 0.4s ease;}
+.modal-overlay.open{opacity:1;pointer-events:all;background:rgba(0,0,0,0.75);}
+.modal{background:#fff;width:100%;max-width:820px;max-height:90vh;overflow-y:auto;transform:translateY(24px) scale(0.98);transition:transform 0.4s cubic-bezier(.16,1,.3,1);position:relative;}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid var(--border);width:36px;height:36px;cursor:pointer;font-size:16px;color:var(--muted2);display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;}
+.modal-close:hover{border-color:var(--text);color:var(--text);}
+.modal-video{width:100%;aspect-ratio:16/9;background:var(--text);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.modal-video-placeholder{text-align:center;}
+.modal-video-icon{font-size:48px;margin-bottom:1rem;opacity:0.3;}
+.modal-video-label{font-family:var(--mono);font-size:10px;color:#555;letter-spacing:0.14em;text-transform:uppercase;}
+.modal-video-soon{font-family:var(--serif);font-size:28px;font-weight:300;color:#333;margin-top:.5rem;font-style:italic;}
+.modal-body{padding:2.5rem;}
+.modal-eyebrow{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:1rem;}
+.modal-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:2rem;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;}
+.modal-section-label{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:.8rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);}
+.modal-section-text{font-family:var(--sans);font-size:13.5px;color:var(--muted2);line-height:1.8;}
+.modal-users{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem;}
+.modal-user-pill{font-family:var(--mono);font-size:9px;color:var(--muted2);border:1px solid var(--border2);padding:4px 10px;letter-spacing:0.06em;}
+.modal-customize{background:var(--surface);padding:1.5rem;border-top:1px solid var(--border);margin-top:0;}
+.modal-customize-label{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:.5rem;}
+.modal-customize-text{font-family:var(--sans);font-size:13px;color:var(--muted2);line-height:1.75;}
+.modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem;}
+
+/* HOW WE WORK */
+.how{padding:10vh 6vw;background:var(--surface);border-top:1px solid var(--border);}
+.how-inner{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:start;margin-top:6vh;}
+.how-step{display:grid;grid-template-columns:48px 1fr;border-bottom:1px solid var(--border);padding:2.2rem 0;align-items:start;}
+.how-step-num{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;padding-top:3px;}
+.how-step-title{font-family:var(--sans);font-size:18px;font-weight:600;margin-bottom:.6rem;line-height:1.2;}
+.how-step-text{font-family:var(--sans);font-size:14px;color:var(--muted2);line-height:1.8;}
+.how-right{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--bg);}
+.stat-block{padding:2.4rem 2.2rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.stat-block:last-child{border-bottom:none;}
+.stat-block-bg{position:absolute;right:-10px;bottom:-10px;font-family:var(--serif);font-size:100px;font-weight:900;color:var(--surface);line-height:1;pointer-events:none;user-select:none;}
+.stat-num{font-family:var(--serif);font-size:clamp(40px,5vw,62px);font-weight:900;line-height:1;margin-bottom:.5rem;position:relative;}
+.stat-label{font-family:var(--sans);font-size:14px;color:var(--muted2);line-height:1.6;position:relative;}
+
+/* HOW PRINCIPLES */
+.how-principles{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--bg);}
+.how-principle{padding:2rem 2.2rem;border-bottom:1px solid var(--border);transition:background 0.25s;position:relative;overflow:hidden;}
+.how-principle:last-child{border-bottom:none;}
+.how-principle:hover{background:var(--surface);}
+.how-principle-icon{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:.9rem;display:block;}
+.how-principle-title{font-family:var(--sans);font-size:16px;font-weight:600;margin-bottom:.5rem;line-height:1.2;color:var(--text);}
+.how-principle-text{font-family:var(--sans);font-size:13.5px;color:var(--muted2);line-height:1.8;}
+.how-principle::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--text);transition:width 0.35s ease;}
+.how-principle:hover::after{width:100%;}
+
+/* NEURAL ANIMATION */
+.neural-canvas-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+#neural-canvas{width:100%;height:100%;opacity:0.55;}
+
+/* SOLUTIONS */
+.solutions{padding:10vh 6vw;border-top:1px solid var(--border);}
+.solutions-inner{display:grid;grid-template-columns:5fr 4fr;gap:8vw;align-items:start;margin-top:6vh;}
+.solutions-quote{font-family:var(--serif);font-size:clamp(22px,3vw,38px);font-weight:300;font-style:italic;line-height:1.3;margin-bottom:2rem;letter-spacing:-0.02em;}
+.solutions-text{font-family:var(--sans);font-size:15px;color:var(--muted2);line-height:1.9;margin-bottom:2.5rem;}
+.solutions-domains{display:flex;flex-wrap:wrap;gap:8px;}
+.domain-pill{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:0.06em;border:1px solid var(--border2);padding:7px 16px;transition:all 0.2s;cursor:default;}
+.domain-pill:hover{border-color:var(--text);color:var(--text);}
+.solutions-list{display:flex;flex-direction:column;border:1px solid var(--border);}
+.sol-item{padding:1.8rem 2rem;border-bottom:1px solid var(--border);display:flex;gap:1.2rem;align-items:flex-start;transition:background 0.2s;}
+.sol-item:last-child{border-bottom:none;}
+.sol-item:hover{background:var(--surface);}
+.sol-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.sol-title{font-family:var(--sans);font-size:15px;font-weight:600;margin-bottom:.3rem;}
+.sol-text{font-family:var(--sans);font-size:13px;color:var(--muted2);line-height:1.7;}
+
+/* CTA */
+.cta{text-align:center;padding:14vh 6vw;border-top:1px solid var(--border);position:relative;overflow:hidden;}
+.cta-content{position:relative;z-index:1;}
+.cta-label{font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin-bottom:2rem;}
+.cta h2{font-family:var(--serif);font-size:clamp(38px,6.5vw,86px);font-weight:300;line-height:1.0;letter-spacing:-0.035em;margin-bottom:1.5rem;}
+.cta h2 b{font-weight:900;font-style:italic;}
+.cta p{font-family:var(--sans);font-size:16px;color:var(--muted2);margin-bottom:3.5rem;line-height:1.85;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:1.5rem;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
+.footer-logo{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text);letter-spacing:0.1em;}
+.footer-logo span{opacity:0.35;}
+.footer-text{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+
+@media(max-width:900px){.exp-grid,.prod-grid{grid-template-columns:1fr 1fr;}.exp-header,.prod-header,.how-inner,.solutions-inner{grid-template-columns:1fr;}.hero-counter{display:none;}.modal-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.exp-grid,.prod-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}footer{flex-direction:column;gap:1rem;text-align:center;}.cta-actions,.hero-actions{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">ASI360<span>LABS</span></div>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Work With Us</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="neural-canvas-wrap"><canvas id="neural-canvas"></canvas></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-hline"></div>
+  <div>
+    <div class="hero-eyebrow reveal d1">AI-native research &amp; engineering</div>
+    <h1 class="reveal d2">We build AI<br/>that works in the<br/><b>real world.</b></h1>
+    <p class="hero-sub reveal d3">ASI360 Labs is a team of AI researchers and engineers — with PhDs in AI and over 15 years of experience — building intelligent products and custom AI solutions for businesses across every industry.</p>
+    <div class="hero-actions reveal d4">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">See Our Products →</button>
+      <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Work With Us</button>
+    </div>
+  </div>
+  <div class="hero-counter reveal d5"><div class="hero-counter-num">09</div><div class="hero-counter-label">AI Products</div></div>
+  <div class="hero-scroll reveal d6">Scroll</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span class="ticker-dot"></span>Natural Language Processing</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Large Language Models</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Agentic AI</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>On-device Intelligence</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Deep Learning</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Computer Vision</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Speech &amp; Audio AI</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>RAG Systems</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>ML Engineering</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Natural Language Processing</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Large Language Models</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Agentic AI</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>On-device Intelligence</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Deep Learning</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Computer Vision</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Speech &amp; Audio AI</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>RAG Systems</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>ML Engineering</div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="exp-header">
+    <div class="reveal"><div class="exp-label">Core Expertise</div><h2 class="exp-title">Research-grade AI.<br/><b>Production-ready</b><br/>engineering.</h2></div>
+    <div class="reveal d2"><p class="exp-subtitle">Our team brings doctoral-level research depth combined with real-world engineering discipline. We don't just prototype — we build AI that runs reliably at scale.</p></div>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal d1"><div class="exp-num">01</div><div class="exp-name">NLP &amp; Large Language Models</div><div class="exp-desc">Fine-tuning, RAG pipelines, custom language understanding systems — we work at every layer of the language stack.</div></div>
+    <div class="exp-card reveal d2"><div class="exp-num">02</div><div class="exp-name">Agentic AI Systems</div><div class="exp-desc">Autonomous agents that plan, reason, and act — integrated with your tools and workflows to get real work done.</div></div>
+    <div class="exp-card reveal d3"><div class="exp-num">03</div><div class="exp-name">On-device Intelligence</div><div class="exp-desc">Compact models that run entirely on-device — no cloud dependency, no data exposure. Private by architecture.</div></div>
+    <div class="exp-card reveal d4"><div class="exp-num">04</div><div class="exp-name">Deep Learning &amp; Vision</div><div class="exp-desc">Custom neural architectures for image, video, and document understanding built for the complexity of your data.</div></div>
+    <div class="exp-card reveal d5"><div class="exp-num">05</div><div class="exp-name">Speech &amp; Audio AI</div><div class="exp-desc">Real-time transcription, speaker recognition, voice cloning — from raw audio to structured, actionable output.</div></div>
+    <div class="exp-card reveal d6"><div class="exp-num">06</div><div class="exp-name">ML Systems &amp; Infrastructure</div><div class="exp-desc">End-to-end ML pipelines — data, training, evaluation, deployment, monitoring. Models that stay accurate in production.</div></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="prod-header">
+    <div class="reveal"><div class="section-label">Products</div><h2 class="section-title">Built by us.<br/><b>Ready for you.</b></h2></div>
+    <div class="reveal d2"><p class="section-sub">A growing suite of AI-native tools across productivity, security, media, and industry — click any product to learn how it works and who it's built for.</p></div>
+  </div>
+  <div class="prod-grid" id="prod-grid"></div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="how" id="how">
+  <div class="reveal"><div class="section-label">How We Work</div><h2 class="section-title">From problem<br/>to <b>production.</b></h2></div>
+  <div class="how-inner">
+    <div>
+      <div class="how-step reveal d1"><div class="how-step-num">01</div><div><div class="how-step-title">Understand the problem</div><div class="how-step-text">We start by understanding your domain, data, and the actual problem — not just the technology that sounds exciting.</div></div></div>
+      <div class="how-step reveal d2"><div class="how-step-num">02</div><div><div class="how-step-title">Design the right solution</div><div class="how-step-text">We identify the right approach — LLM, fine-tuned model, agentic pipeline, on-device inference — based on your requirements.</div></div></div>
+      <div class="how-step reveal d3"><div class="how-step-num">03</div><div><div class="how-step-title">Build and iterate fast</div><div class="how-step-text">Working prototypes quickly, so you can see and test early. We iterate with you until the output matches the goal.</div></div></div>
+      <div class="how-step reveal d4"><div class="how-step-num">04</div><div><div class="how-step-title">Deploy and support</div><div class="how-step-text">We take solutions all the way to production — with monitoring, maintenance, and flexibility to evolve as you grow.</div></div></div>
+    </div>
+    <div class="how-right reveal d2">
+      <div class="how-principles">
+        <div class="how-principle"><span class="how-principle-icon">◈ Principle 01</span><div class="how-principle-title">Research-first</div><div class="how-principle-text">Every solution is grounded in the right approach — not the most fashionable one. We choose methods that fit the problem.</div></div>
+        <div class="how-principle"><span class="how-principle-icon">◈ Principle 02</span><div class="how-principle-title">Production-grade</div><div class="how-principle-text">We build for real-world conditions — scale, latency, reliability, edge cases. Not demos that fall apart outside a notebook.</div></div>
+        <div class="how-principle"><span class="how-principle-icon">◈ Principle 03</span><div class="how-principle-title">Honest by default</div><div class="how-principle-text">If AI isn't the right solution for your problem, we'll tell you. We'd rather advise well than build something unnecessary.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions" id="solutions">
+  <div class="reveal"><div class="section-label">Custom Solutions</div><h2 class="section-title">Your industry.<br/><b>Our AI.</b></h2></div>
+  <div class="solutions-inner">
+    <div class="reveal d1">
+      <p class="solutions-quote">"Industry is not a constraint. Every field generates data and decisions that AI can transform."</p>
+      <p class="solutions-text">We bring the technical depth — NLP, ML, deep learning, LLMs, agentic AI. You bring the domain knowledge. Together we build AI-native solutions that actually work in your context, not a generic tool retrofitted to your problem.<br/><br/>From a single AI feature to a full end-to-end platform, we work as your technical co-builder — from ideation to production.</p>
+      <div class="solutions-domains">
+        <span class="domain-pill">Healthcare</span><span class="domain-pill">Finance</span><span class="domain-pill">Legal</span><span class="domain-pill">Retail</span><span class="domain-pill">Manufacturing</span><span class="domain-pill">Education</span><span class="domain-pill">Media</span><span class="domain-pill">Logistics</span><span class="domain-pill">Construction</span><span class="domain-pill">Government</span><span class="domain-pill">+ more</span>
+      </div>
+    </div>
+    <div class="solutions-list reveal d3">
+      <div class="sol-item"><span class="sol-icon">🧠</span><div><div class="sol-title">LLM Application Development</div><div class="sol-text">Custom LLM apps, RAG systems, and conversational AI built for your specific use case.</div></div></div>
+      <div class="sol-item"><span class="sol-icon">⚙️</span><div><div class="sol-title">AI Workflow Automation</div><div class="sol-text">Agentic systems that automate complex multi-step workflows end to end.</div></div></div>
+      <div class="sol-item"><span class="sol-icon">📊</span><div><div class="sol-title">Document &amp; Data Intelligence</div><div class="sol-text">Extract, classify, and reason over unstructured documents and data at scale.</div></div></div>
+      <div class="sol-item"><span class="sol-icon">🔒</span><div><div class="sol-title">Enterprise AI Integration</div><div class="sol-text">Integrate AI into your existing systems — securely, privately, without disrupting what works.</div></div></div>
+      <div class="sol-item"><span class="sol-icon">📱</span><div><div class="sol-title">On-device AI Solutions</div><div class="sol-text">Private, offline-capable AI that runs entirely on your users' devices — no cloud required.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-content">
+    <div class="cta-label reveal">Get In Touch</div>
+    <h2 class="reveal d1">Let's build something<br/><b>worth building.</b></h2>
+    <p class="reveal d2">Tell us what you're working on. We'll tell you how AI can make it significantly better — or be honest if it can't.</p>
+    <div class="cta-actions reveal d3">
+      <button class="btn-primary">Start a Conversation →</button>
+      <button class="btn-ghost">See Our Products</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ASI360<span>LABS</span></div>
+  <div class="footer-text">© 2026 ASI360 Labs · All rights reserved</div>
+  <div class="footer-links"><a href="#">Privacy</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-video" id="modal-video" style="display:none;"></div>
+    <div class="modal-body">
+      <div class="modal-eyebrow" id="modal-eyebrow"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-grid">
+        <div>
+          <div class="modal-section-label">How it works</div>
+          <div class="modal-section-text" id="modal-how"></div>
+        </div>
+        <div>
+          <div class="modal-section-label">Who benefits</div>
+          <div class="modal-section-text" id="modal-who"></div>
+          <div class="modal-users" id="modal-users"></div>
+        </div>
+      </div>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+    <div class="modal-customize">
+      <div class="modal-customize-label">Customizable for your needs</div>
+      <div class="modal-customize-text" id="modal-customize"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    num:"01", icon:"🤖", name:"Cook Your Chatbot",
+    desc:"A private AI chatbot that runs fully on your laptop or mobile device — no internet, no server, no data leaving your machine.",
+    tags:["On-device","Offline","Privacy-first"],
+    onDevice:true,
+    eyebrow:"On-device Conversational AI",
+    how:"Built on a compact, quantized language model that runs locally using CPU/GPU on your device. Uses an efficient inference engine (GGML/llama.cpp stack) so it works without any internet connection. All conversation history stays on-device and is never transmitted.",
+    who:"Individuals and enterprises who need AI assistance without exposing sensitive conversations to cloud providers. Ideal for legal, finance, healthcare, and any context where data privacy is non-negotiable.",
+    users:["Lawyers","Healthcare professionals","Financial analysts","Privacy-conscious individuals","Enterprises"],
+    customize:"The underlying model, persona, knowledge base, and context window can all be customized. We can fine-tune on your domain-specific data and package it as a branded on-device assistant for your organization."
+  },
+  {
+    num:"02", icon:"📱", name:"Personal Assistant",
+    desc:"Indexes the files, documents, notes, and emails you choose to share — on your device — and makes them instantly searchable through natural language.",
+    tags:["On-device","Local Index","Natural Language Search"],
+    onDevice:true,
+    eyebrow:"On-device Personal Knowledge Engine",
+    how:"Uses a lightweight embedding model to create a local semantic index of your permitted files and documents. Queries are processed entirely on-device using vector similarity search — no data is ever sent to a server. Works on both laptop and mobile with user-controlled data access permissions.",
+    who:"Professionals who deal with large volumes of documents, notes, and communications and need to retrieve information quickly without cloud sync or privacy trade-offs.",
+    users:["Researchers","Executives","Lawyers","Consultants","Knowledge workers"],
+    customize:"Can be scoped to specific file types, folders, or apps. Indexing scope, search behavior, and UI can all be tailored. Can also be deployed as an enterprise-wide local knowledge retrieval tool."
+  },
+  {
+    num:"03", icon:"🎙️", name:"MeetingScribe",
+    desc:"Runs silently during any meeting and delivers structured notes to your device when it ends — fully offline, compatible with any platform.",
+    tags:["On-device","Audio → Text","Offline"],
+    onDevice:true,
+    eyebrow:"On-device Meeting Intelligence",
+    how:"Uses an on-device speech recognition model (Whisper-based, quantized for local inference) to transcribe audio in real time. A summarization model then structures the transcript into key decisions, action items, and discussion points — all processed locally, nothing sent to the cloud.",
+    who:"Anyone who attends frequent meetings and needs reliable, private notes without depending on third-party recording services.",
+    users:["Product managers","Executives","Consultants","Sales teams","Legal professionals"],
+    customize:"Can be configured for specific meeting formats (standups, client calls, board meetings). Summary structure, language, and output format (email, Notion, PDF) can all be customized per team or workflow."
+  },
+  {
+    num:"04", icon:"🛡️", name:"VulnScan",
+    desc:"Scans your project's dependency files and recommends version upgrades based on known CVEs — so security risks are caught before they reach production.",
+    tags:["DevSec","Dependency Audit","CVE Detection"],
+    onDevice:false,
+    eyebrow:"AI-powered Dependency Security",
+    how:"Parses requirements files (pip, npm, Maven, Gradle, etc.), queries CVE databases, and uses an AI model to reason over upgrade paths — weighing compatibility, severity, and breaking change risk. Outputs a prioritized remediation report with suggested version changes.",
+    who:"Engineering teams who want to systematically reduce vulnerability exposure in their software dependencies without manual CVE triage.",
+    users:["Software engineers","DevSecOps teams","CTOs","Security auditors","Open-source maintainers"],
+    customize:"Can be integrated into CI/CD pipelines as an automated gate, configured for specific severity thresholds, and extended to cover proprietary internal package registries."
+  },
+  {
+    num:"05", icon:"📄", name:"DocExtract",
+    desc:"Extracts structured data from PDFs, scanned documents, and images using a compact on-device language model built for real-world document complexity.",
+    tags:["Document AI","PDF & Vision","Small LM"],
+    onDevice:false,
+    eyebrow:"Intelligent Document Extraction",
+    how:"Combines OCR with a fine-tuned small language model trained to understand document layouts — tables, headers, form fields, multi-column formats. Handles noisy scans, handwriting, and irregular layouts that generic extractors fail on. Outputs clean JSON or structured data.",
+    who:"Businesses that process large volumes of documents — invoices, contracts, reports, forms — and need reliable structured extraction without manual data entry.",
+    users:["Finance teams","Legal departments","Insurance companies","Logistics operators","Healthcare providers"],
+    customize:"The extraction schema, document types, and output format are fully configurable. Can be fine-tuned on your specific document formats for significantly higher accuracy on your data."
+  },
+  {
+    num:"06", icon:"🎬", name:"VoiceDub",
+    desc:"Dubs video content into other languages using the original speaker's voice — preserving tone, pacing, and emotion. Real voice transfer, not generic text-to-speech.",
+    tags:["Voice Cloning","Multilingual","Emotion Preservation"],
+    onDevice:false,
+    eyebrow:"Multilingual Voice Transfer",
+    how:"Uses a neural voice cloning model to capture the speaker's vocal characteristics — timbre, prosody, emotional inflection. A translation model converts the script, then a speech synthesis model renders it in the target language using the cloned voice, with lip-sync alignment for video.",
+    who:"Content creators, media companies, and enterprises that publish video content and want to reach multilingual audiences without losing the authenticity of the original speaker.",
+    users:["Media companies","E-learning platforms","Corporate training teams","Content creators","Film & TV studios"],
+    customize:"Supports custom language pairs, regional accents, and multiple speakers per video. Can be integrated into existing video production pipelines via API."
+  },
+  {
+    num:"07", icon:"🧾", name:"DocuGen",
+    desc:"Generates business documents — invoices, purchase orders, quotes, contracts — automatically from your product catalogue, pricing data, and transaction inputs.",
+    tags:["Document Generation","Automation","Business AI"],
+    onDevice:false,
+    eyebrow:"Intelligent Document Generation",
+    how:"Takes structured business inputs (catalogue, unit prices, client data, transaction details) and uses a template-aware generation model to produce accurate, formatted documents. Understands business logic — tax calculations, line item grouping, payment terms — and outputs print-ready PDFs or editable formats.",
+    who:"Businesses of any size that generate repetitive structured documents and want to eliminate manual document creation errors and time.",
+    users:["Finance teams","Sales operations","SME business owners","Procurement teams","Logistics companies"],
+    customize:"Document templates, business rules, branding, and output formats are fully customizable. Can integrate with your existing ERP, CRM, or inventory systems to pull data automatically."
+  },
+  {
+    num:"08", icon:"🔍", name:"VisionQC",
+    desc:"Detects damaged or defective products on manufacturing lines using computer vision — trained to high accuracy even with very small datasets.",
+    tags:["Computer Vision","Quality Control","Few-shot Learning"],
+    onDevice:false,
+    eyebrow:"Vision-based Quality Inspection",
+    how:"Uses a few-shot learning approach with a fine-tuned vision model that achieves strong defect detection accuracy with as few as 50–200 labelled images — far less than traditional CV systems. Detects surface defects, dimensional anomalies, and assembly errors in real time from camera feeds on the production line.",
+    who:"Manufacturing facilities that need automated quality inspection but don't have large labelled datasets or the budget for traditional machine vision systems.",
+    users:["Manufacturing QC teams","Production engineers","Factory managers","Supply chain operators","OEM suppliers"],
+    customize:"Trained on your specific product and defect types. Can be deployed on edge hardware at the production line, integrated with existing inspection cameras, and configured to trigger alerts or line stops."
+  },
+  {
+    num:"09", icon:"🏗️", name:"PlanEstimate",
+    desc:"Generates construction cost estimates directly from floor plans — giving contractors and developers accurate budgets faster than any manual process.",
+    tags:["Computer Vision","Construction AI","Cost Estimation"],
+    onDevice:false,
+    eyebrow:"AI-powered Construction Estimation",
+    how:"Processes floor plan images or PDFs using a vision model trained to recognize architectural elements — rooms, walls, openings, structural features. Extracts dimensions and material zones, then applies regional cost databases and configurable rate cards to generate itemized cost estimates.",
+    who:"Construction companies, architects, and developers who need fast, reliable preliminary cost estimates without manual quantity take-off.",
+    users:["Construction companies","Architects","Real estate developers","Project managers","Quantity surveyors"],
+    customize:"Cost databases, material rate cards, regional pricing, and estimation methodology can all be configured. Can be integrated into existing project management or tendering platforms."
+  }
+];
+
+function renderProducts() {
+  const grid = document.getElementById('prod-grid');
+  products.forEach((p, i) => {
+    const delay = `d${i+1}`;
+    const tagsHtml = p.tags.map(t => `<span class="prod-tag${p.onDevice && t==='On-device'?' on':''}">${t}</span>`).join('');
+    grid.innerHTML += `
+      <div class="prod-card reveal ${delay}" onclick="openModal(${i})">
+        <div class="prod-num">${p.num}</div>
+        <span class="prod-icon">${p.icon}</span>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-desc">${p.desc}</div>
+        <div class="prod-tags">${tagsHtml}</div>
+        <div class="prod-cta">Learn more</div>
+      </div>`;
+  });
+  // fix borders for 3-col grid with 9 items
+  const cards = grid.querySelectorAll('.prod-card');
+  cards.forEach((c,i) => {
+    if((i+1)%3===0) c.style.borderRight='none';
+    if(i>=6) c.style.borderBottom='none';
+  });
+}
+
+function openModal(idx) {
+  const p = products[idx];
+  document.getElementById('modal-eyebrow').textContent = p.eyebrow;
+  document.getElementById('modal-title').textContent = p.name;
+  document.getElementById('modal-how').textContent = p.how;
+  document.getElementById('modal-who').textContent = p.who;
+  document.getElementById('modal-customize').textContent = p.customize;
+  const usersEl = document.getElementById('modal-users');
+  usersEl.innerHTML = p.users.map(u=>`<span class="modal-user-pill">${u}</span>`).join('');
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = p.tags.map(t=>`<span class="prod-tag">${t}</span>`).join('');
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
+
+renderProducts();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<!-- NEURAL NETWORK ANIMATION -->
+<script>
+(function(){
+  const canvas = document.getElementById('neural-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes=[], animFrame;
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  const LAYERS = [4,7,9,7,4];
+  const NODE_RADIUS = 4;
+  const PULSE_INTERVAL = 2200;
+
+  function buildNodes(){
+    nodes = [];
+    const layerCount = LAYERS.length;
+    const marginX = W*0.12;
+    const marginY = H*0.15;
+    const usableW = W - marginX*2;
+    const usableH = H - marginY*2;
+
+    LAYERS.forEach((count, li) => {
+      const x = marginX + (li/(layerCount-1))*usableW;
+      for(let ni=0; ni<count; ni++){
+        const y = marginY + (count===1?usableH/2:(ni/(count-1))*usableH);
+        nodes.push({ x, y, layer:li, idx:ni, pulse:0, glow:0 });
+      }
+    });
+  }
+
+  function getLayer(l){ return nodes.filter(n=>n.layer===l); }
+
+  // pulses: {fromX,fromY,toX,toY,t,speed,opacity}
+  let pulses = [];
+  let lastPulse = 0;
+
+  function spawnPulse(now){
+    // pick a random path through all layers
+    const path = [];
+    for(let l=0;l<LAYERS.length;l++){
+      const layer = getLayer(l);
+      path.push(layer[Math.floor(Math.random()*layer.length)]);
+    }
+    // create pulse segments along this path
+    for(let i=0;i<path.length-1;i++){
+      pulses.push({
+        from: path[i], to: path[i+1],
+        t: -i*0.18, // stagger along the path
+        speed: 0.0045 + Math.random()*0.002,
+        alpha: 0.7 + Math.random()*0.3,
+        color: Math.random() < 0.15 ? '13,110,253' : '0,0,0'
+      });
+    }
+    // glow source node
+    path[0].glow = 1.0;
+  }
+
+  function draw(ts){
+    ctx.clearRect(0,0,W,H);
+
+    const allNodes = nodes;
+
+    // draw edges
+    for(let l=0;l<LAYERS.length-1;l++){
+      const from = getLayer(l);
+      const to = getLayer(l+1);
+      from.forEach(fn => {
+        to.forEach(tn => {
+          ctx.beginPath();
+          ctx.moveTo(fn.x, fn.y);
+          ctx.lineTo(tn.x, tn.y);
+          ctx.strokeStyle = 'rgba(0,0,0,0.055)';
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        });
+      });
+    }
+
+    // update & draw pulses
+    pulses = pulses.filter(p => {
+      p.t += p.speed;
+      if(p.t < 0) return true;
+      if(p.t >= 1){ p.to.glow = Math.max(p.to.glow, 0.85); return false; }
+
+      const x = p.from.x + (p.to.x - p.from.x)*p.t;
+      const y = p.from.y + (p.to.y - p.from.y)*p.t;
+      // trail
+      const grad = ctx.createRadialGradient(x,y,0,x,y,7);
+      grad.addColorStop(0, `rgba(${p.color},${p.alpha})`);
+      grad.addColorStop(1, `rgba(${p.color},0)`);
+      ctx.beginPath();
+      ctx.arc(x,y,7,0,Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      return true;
+    });
+
+    // draw nodes
+    allNodes.forEach(n => {
+      n.glow = Math.max(0, n.glow - 0.012);
+      const g = n.glow;
+
+      if(g > 0.01){
+        const grd = ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,18);
+        grd.addColorStop(0,`rgba(0,0,0,${g*0.18})`);
+        grd.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,18,0,Math.PI*2);
+        ctx.fillStyle=grd;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, NODE_RADIUS, 0, Math.PI*2);
+      ctx.fillStyle = g > 0.1
+        ? `rgba(0,0,0,${0.35+g*0.5})`
+        : 'rgba(0,0,0,0.2)';
+      ctx.fill();
+      ctx.strokeStyle = `rgba(0,0,0,${0.08+g*0.3})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    if(ts - lastPulse > PULSE_INTERVAL){
+      spawnPulse(ts);
+      lastPulse = ts;
+    }
+
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  function init(){
+    resize();
+    buildNodes();
+    spawnPulse(0);
+    lastPulse = 0;
+    animFrame = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', ()=>{
+    cancelAnimationFrame(animFrame);
+    resize();
+    buildNodes();
+    animFrame = requestAnimationFrame(draw);
+  });
+
+  init();
+})();
+</script>
+
+</body>
+</html>
