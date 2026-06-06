@@ -11,6 +11,9 @@
   <meta property="og:url" content="https://asi360labs.com"/>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
   <link rel="canonical" href="https://asi360labs.com"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/asi360-logo.png"/>
+  <link rel="apple-touch-icon" href="assets/images/asi360-logo.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="ASI360 Labs | Custom AI Products & Solutions"/>
   <meta name="twitter:description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
@@ -43,8 +46,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:h
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:64px;}
-.nav-logo{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:0.08em;color:var(--text);}
-.nav-logo span{opacity:0.35;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;color:var(--text);flex-shrink:0;}
+.nav-logo-img{height:50px;width:auto;display:block;object-fit:contain;object-position:left center;}
+.nav-logo-text{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:0.08em;color:var(--text);display:none;}
+.nav-logo-text span{opacity:0.35;}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
 .nav-links a{color:var(--muted2);text-decoration:none;font-size:13px;transition:color 0.2s;}
 .nav-links a:hover{color:var(--text);}
@@ -212,13 +217,21 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 .footer-links a:hover{color:var(--text);}
 
 @media(max-width:900px){.exp-grid,.prod-grid{grid-template-columns:1fr 1fr;}.exp-header,.prod-header,.how-inner,.solutions-inner{grid-template-columns:1fr;}.hero-counter{display:none;}.modal-grid{grid-template-columns:1fr;}}
-@media(max-width:600px){.exp-grid,.prod-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}footer{flex-direction:column;gap:1rem;text-align:center;}.cta-actions,.hero-actions{flex-direction:column;}}
+@media(max-width:600px){.exp-grid,.prod-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}footer{flex-direction:column;gap:1rem;text-align:center;}.cta-actions,.hero-actions{flex-direction:column;}.nav-logo-img{height:38px;}}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">ASI360<span>LABS</span></div>
+  <a href="/" class="nav-logo" aria-label="ASI360 Labs – Home">
+    <img
+      src="assets/images/asi360-logo.png"
+      alt="ASI360 Labs Logo"
+      class="nav-logo-img"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+    />
+    <span class="nav-logo-text">ASI360<span> Labs</span></span>
+  </a>
   <ul class="nav-links">
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#products">Products</a></li>
@@ -356,7 +369,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 </section>
 
 <footer>
-  <div class="footer-logo">ASI360<span>LABS</span></div>
+  <div class="footer-logo">ASI360<span> Labs</span></div>
   <div class="footer-text">© 2026 ASI360 Labs · All rights reserved</div>
   <div class="footer-links"><a href="#">Privacy</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
 </footer>
