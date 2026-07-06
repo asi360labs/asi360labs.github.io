@@ -9,14 +9,16 @@
   <meta property="og:title" content="ASI360 Labs | Custom AI Products & Solutions"/>
   <meta property="og:description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
   <meta property="og:url" content="https://asi360labs.com"/>
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
-  <link rel="canonical" href="https://asi360labs.com"/>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/images/asi360-logo.png"/>
-  <link rel="apple-touch-icon" href="assets/images/asi360-logo.png"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="https://asi360labs.com/assets/images/asi360-logo.png"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="ASI360 Labs | Custom AI Products & Solutions"/>
   <meta name="twitter:description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
+  <meta name="twitter:image" content="https://asi360labs.com/assets/images/asi360-logo.png"/>
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
+  <link rel="canonical" href="https://asi360labs.com"/>
+  <link rel="icon" type="image/png" href="assets/images/asi360-logo.png"/>
+  <link rel="apple-touch-icon" href="assets/images/asi360-logo.png"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,8 +32,10 @@
       "name": "Global"
     },
     "sameAs": [
-      "https://github.com/asi360labs"
-    ]
+      "https://github.com/asi360labs",
+      "https://www.linkedin.com/in/deepika-ss-asi360labs"
+    ],
+    "logo": "https://asi360labs.com/assets/images/asi360-logo.png"
   }
   </script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -51,6 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(
 .nav-logo-text{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:0.08em;color:var(--text);display:none;}
 .nav-logo-text span{opacity:0.35;}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-mobile-link{display:none;}
 .nav-links a{color:var(--muted2);text-decoration:none;font-size:13px;transition:color 0.2s;}
 .nav-links a:hover{color:var(--text);}
 .nav-cta{background:var(--text);color:#fff;border:none;padding:10px 22px;font-size:12px;font-family:var(--mono);letter-spacing:0.06em;cursor:pointer;transition:opacity 0.2s;}
@@ -217,7 +222,31 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 .footer-links a:hover{color:var(--text);}
 
 @media(max-width:900px){.exp-grid,.prod-grid{grid-template-columns:1fr 1fr;}.exp-header,.prod-header,.how-inner,.solutions-inner{grid-template-columns:1fr;}.hero-counter{display:none;}.modal-grid{grid-template-columns:1fr;}}
-@media(max-width:600px){.exp-grid,.prod-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}footer{flex-direction:column;gap:1rem;text-align:center;}.cta-actions,.hero-actions{flex-direction:column;}.nav-logo-img{height:38px;}}
+@media(max-width:600px){.exp-grid,.prod-grid{grid-template-columns:1fr;}nav .nav-links{display:none;}footer{flex-direction:column;gap:1rem;text-align:center;}.cta-actions,.hero-actions{flex-direction:column;}.nav-logo-img{height:38px;}nav{gap:1rem;}.nav-mobile-link{display:inline-flex;align-items:center;color:var(--muted2);text-decoration:none;font-size:13px;margin-right:auto;}}
+@media(max-width:380px){.nav-cta{padding:10px 14px;white-space:nowrap;}.nav-mobile-link{display:none;}}
+/* INSIGHTS */
+.insights{padding:10vh 6vw;border-top:1px solid var(--border);}
+.insights-header{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:end;margin-bottom:6vh;border-bottom:1px solid var(--border);padding-bottom:4vh;}
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0;border:1px solid var(--border);}
+.insight-card{display:block;padding:2.2rem 1.8rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);transition:background 0.25s;position:relative;overflow:hidden;}
+.insight-card:last-child{border-right:none;border-bottom:none;}
+.insight-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--text);transition:width 0.4s ease;}
+.insight-card:hover::after{width:100%;}
+.insight-card:hover{background:var(--surface);}
+.insight-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;margin-bottom:1.6rem;}
+.insight-title{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.25;margin-bottom:.8rem;letter-spacing:-0.01em;}
+.insight-desc{font-family:var(--sans);font-size:13px;color:var(--muted2);line-height:1.75;margin-bottom:1.4rem;}
+.insight-meta{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;display:flex;align-items:center;justify-content:space-between;}
+.insight-read{display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.insight-card:hover .insight-read{color:var(--text);}
+.insight-read::after{content:'→';transition:transform 0.2s;}
+.insight-card:hover .insight-read::after{transform:translateX(4px);}
+
+@media(max-width:600px){
+  .insights{padding:7vh 6vw;}
+  .insights-header{grid-template-columns:1fr;gap:1.5rem;}
+  .insight-card{border-right:none !important;}
+}
 </style>
 </head>
 <body>
@@ -233,11 +262,12 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
     <span class="nav-logo-text">ASI360<span> Labs</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#solutions">Solutions</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="/#expertise">Expertise</a></li>
+    <li><a href="/#products">Products</a></li>
+    <li><a href="/#solutions">Solutions</a></li>
+    <li><a href="/#contact">Contact</a></li>
   </ul>
+  <a href="/#contact" class="nav-mobile-link" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact</a>
   <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Work With Us</button>
 </nav>
 
@@ -307,6 +337,48 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
   <div class="prod-grid" id="prod-grid"></div>
 </section>
 
+<!-- INSIGHTS -->
+<section class="insights" id="insights">
+  <div class="insights-header">
+    <div class="reveal">
+      <div class="section-label">Insights</div>
+      <h2 class="section-title">Thinking out loud.<br/><b>From first principles.</b></h2>
+    </div>
+    <div class="reveal d2">
+      <p class="section-sub">Notes on enterprise AI architecture, what actually works in production, and what we're learning as we build. No hype, no vendor pitches.</p>
+    </div>
+  </div>
+
+  <div class="insights-grid">
+
+    <!-- ARTICLE 1 -->
+    <a class="insight-card reveal" href="blog/enterprise-ai-architecture.html">
+      <div class="insight-eyebrow">Enterprise AI Architecture</div>
+      <div class="insight-title">Why Enterprise AI Keeps Failing — And the Architecture That Fixes It</div>
+      <div class="insight-desc">Most enterprise AI projects fail because of architecture, not the model. A first-principles framework for the three-layer stack, the maturity model, and why "context engineering" is the discipline that matters most.</div>
+      <div class="insight-meta">
+        <span>ASI360 Labs</span>
+        <span class="insight-read">Read article</span>
+      </div>
+    </a>
+
+    <!-- ARTICLE 2 (placeholder — duplicate this block for future posts) -->
+    <!--
+    <a class="insight-card reveal d1" href="blog/your-next-article.html">
+      <div class="insight-eyebrow">Category Label</div>
+      <div class="insight-title">Your Next Article Title</div>
+      <div class="insight-desc">One to two sentence summary of the article that makes someone want to click.</div>
+      <div class="insight-meta">
+        <span>ASI360 Labs</span>
+        <span class="insight-read">Read article</span>
+      </div>
+    </a>
+    -->
+
+  </div>
+</section>
+
+
 <!-- HOW WE WORK -->
 <section class="how" id="how">
   <div class="reveal"><div class="section-label">How We Work</div><h2 class="section-title">From problem<br/>to <b>production.</b></h2></div>
@@ -371,7 +443,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 <footer>
   <div class="footer-logo">ASI360<span> Labs</span></div>
   <div class="footer-text">© 2026 ASI360 Labs · All rights reserved</div>
-  <div class="footer-links"><a href="#">Privacy</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
+  <div class="footer-links"><a href="/#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact</a><a href="https://www.linkedin.com/in/deepika-ss-asi360labs" target="_blank" rel="noopener">LinkedIn</a></div>
 </footer>
 
 <!-- MODAL -->
