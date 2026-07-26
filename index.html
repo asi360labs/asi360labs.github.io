@@ -212,6 +212,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(
 .cta-form-wrap{max-width:640px;margin:0 auto;border:1px solid var(--border);overflow:hidden;background:var(--bg);}
 .cta-form-wrap iframe{display:block;width:100%;min-height:640px;border:none;}
 
+/* CONTACT FORM */
+.c-form{padding:2.6rem 2.4rem;text-align:left;}
+.c-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.c-field{margin-bottom:1.1rem;}
+.c-field label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:.5rem;}
+.c-field input,.c-field select,.c-field textarea{width:100%;border:1px solid var(--border2);background:var(--bg);padding:12px 14px;font-family:var(--sans);font-size:14px;color:var(--text);transition:border-color .2s;}
+.c-field input:focus,.c-field select:focus,.c-field textarea:focus{outline:none;border-color:var(--text);}
+.c-field textarea{resize:vertical;min-height:110px;font-family:var(--sans);}
+.c-field select{appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14'%3E%3Cpath fill='%239a9890' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer;}
+.c-submit{width:100%;background:var(--text);color:#fff;border:none;padding:14px 22px;font-size:12px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s;margin-top:.4rem;}
+.c-submit:hover{opacity:0.8;}
+.c-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.c-status{font-family:var(--sans);font-size:13px;margin-top:1rem;display:none;}
+.c-status.show{display:block;}
+.c-status.ok{color:#1a7a3d;}
+.c-status.err{color:#b3261e;}
+@media(max-width:600px){.c-row{grid-template-columns:1fr;}.c-form{padding:2rem 1.4rem;}}
+
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
 .footer-logo{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text);letter-spacing:0.1em;}
@@ -427,24 +445,102 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
     <h2 class="reveal d1">Let's build something<br/><b>worth building.</b></h2>
     <p class="reveal d2">Tell us what you're working on. We'll help you figure out whether AI is the right investment — and if it is, we'll build it properly.</p>
     <div class="cta-form-wrap reveal d3">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSddwDmxQ0DGTMoyNsT5ZiJ_6iHcze3rhXEkfuZxE0z2hbo38A/viewform?embedded=true&hl=en&rm=minimal"
-        width="100%"
-        height="640"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0">
-        Loading…
-      </iframe>
+      <form class="c-form" id="contact-form" action="https://formsubmit.co/asi360labs@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New inquiry from asi360labs.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="c-row">
+          <div class="c-field">
+            <label for="cf-name">Full Name</label>
+            <input type="text" id="cf-name" name="Name" required>
+          </div>
+          <div class="c-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="Email" required>
+          </div>
+        </div>
+
+        <div class="c-row">
+          <div class="c-field">
+            <label for="cf-company">Company (optional)</label>
+            <input type="text" id="cf-company" name="Company">
+          </div>
+          <div class="c-field">
+            <label for="cf-reason">I'm reaching out about</label>
+            <select id="cf-reason" name="Reason" required>
+              <option value="">Select one</option>
+              <option>I want a custom AI solution</option>
+              <option>I'm interested in a product</option>
+              <option>Partnership opportunity</option>
+              <option>General enquiry</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="c-field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="Message" required></textarea>
+        </div>
+
+        <button type="submit" class="c-submit" id="cf-submit">Send Inquiry</button>
+        <div class="c-status" id="cf-status"></div>
+      </form>
     </div>
   </div>
 </section>
 
+<script>
+(function(){
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('cf-status');
+  var btn = document.getElementById('cf-submit');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.className = 'c-status';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        form.reset();
+        status.textContent = "Thanks for reaching out! We've received your message and will respond within 1 business day.";
+        status.className = 'c-status show ok';
+      } else {
+        throw new Error('Submission failed');
+      }
+    }).catch(function(){
+      status.textContent = "Something went wrong sending your message. Please email us directly at asi360labs@gmail.com.";
+      status.className = 'c-status show err';
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send Inquiry';
+    });
+  });
+})();
+</script>
+
 <footer>
   <div class="footer-logo">ASI360<span> Labs</span></div>
   <div class="footer-text">© 2026 ASI360 Labs · All rights reserved</div>
-  <div class="footer-links"><a href="/#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact</a><a href="https://www.linkedin.com/in/deepika-ss-asi360labs" target="_blank" rel="noopener">LinkedIn</a></div>
+  <div class="footer-links"><a href="/#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact</a><a href="https://www.linkedin.com/in/deepika-ss-asi360labs" target="_blank" rel="noopener">LinkedIn</a><a id="footer-email" href="#">Email</a></div>
 </footer>
+
+<script>
+(function(){
+  var u = "asi360labs", d = "gmail.com";
+  var el = document.getElementById('footer-email');
+  if(el){
+    el.href = "mailto:" + u + "@" + d;
+    el.textContent = u + "@" + d;
+  }
+})();
+</script>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
