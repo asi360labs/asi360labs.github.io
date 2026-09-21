@@ -4,21 +4,24 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ASI360 Labs | Custom AI Products & Solutions</title>
-  <meta name="description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
+  <meta name="description" content="ASI360 Labs builds AI products for businesses — including a ready-to-deploy AI ERP and AI Hospital Management system — plus custom AI solutions built for real-world deployment."/>
   <meta name="robots" content="index, follow"/>
   <meta property="og:title" content="ASI360 Labs | Custom AI Products & Solutions"/>
-  <meta property="og:description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
+  <meta property="og:description" content="ASI360 Labs builds AI products for businesses — including a ready-to-deploy AI ERP and AI Hospital Management system — plus custom AI solutions built for real-world deployment."/>
   <meta property="og:url" content="https://asi360labs.com"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:image" content="https://asi360labs.com/assets/images/asi360-logo.png"/>
+  <meta property="og:image" content="https://asi360labs.com/assets/images/social-card.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="ASI360 Labs"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="ASI360 Labs | Custom AI Products & Solutions"/>
-  <meta name="twitter:description" content="ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment."/>
-  <meta name="twitter:image" content="https://asi360labs.com/assets/images/asi360-logo.png"/>
+  <meta name="twitter:description" content="ASI360 Labs builds AI products for businesses — including a ready-to-deploy AI ERP and AI Hospital Management system — plus custom AI solutions built for real-world deployment."/>
+  <meta name="twitter:image" content="https://asi360labs.com/assets/images/social-card.png"/>
   <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
-  <link rel="canonical" href="https://asi360labs.com"/>
-  <link rel="icon" type="image/png" href="assets/images/asi360-logo.png"/>
-  <link rel="apple-touch-icon" href="assets/images/asi360-logo.png"/>
+  <link rel="canonical" href="https://asi360labs.com/"/>
+  <link rel="icon" type="image/png" href="assets/images/favicon-64.png"/>
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png"/>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -26,7 +29,7 @@
     "name": "ASI360 Labs",
     "alternateName": "ASI360Labs",
     "url": "https://asi360labs.com",
-    "description": "ASI360 Labs builds custom AI products and solutions for businesses — from intelligent automation to on-device AI, built for real-world deployment.",
+    "description": "ASI360 Labs builds AI products for businesses — including a ready-to-deploy AI ERP and AI Hospital Management system — plus custom AI solutions built for real-world deployment.",
     "foundingLocation": {
       "@type": "Place",
       "name": "Global"
@@ -156,6 +159,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(
 .modal-customize-label{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:.5rem;}
 .modal-customize-text{font-family:var(--sans);font-size:13px;color:var(--muted2);line-height:1.75;}
 .modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem;}
+.modal-modules{margin-bottom:2rem;}
+.modal-module-pill{font-family:var(--sans);font-size:12.5px;color:var(--text);border:1px solid var(--border2);padding:6px 12px;background:var(--bg);}
+.modal-cta{margin-top:1.4rem;}
+.modal-eyebrow{padding-right:3rem;}
+@media(max-width:600px){.modal-overlay{padding:.75rem;}.modal-body{padding:2rem 1.4rem;}.modal-customize{padding:1.4rem;}.modal-close{top:1rem;right:1rem;}}
 
 /* HOW WE WORK */
 .how{padding:10vh 6vw;background:var(--surface);border-top:1px solid var(--border);}
@@ -272,7 +280,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 <nav>
   <a href="/" class="nav-logo" aria-label="ASI360 Labs – Home">
     <img
-      src="assets/images/asi360-logo.png"
+      src="assets/images/logo-nav.png"
       alt="ASI360 Labs Logo"
       class="nav-logo-img"
       onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
@@ -350,7 +358,7 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 <section class="products" id="products">
   <div class="prod-header">
     <div class="reveal"><div class="section-label">Products</div><h2 class="section-title">Built by us.<br/><b>Ready for you.</b></h2></div>
-    <div class="reveal d2"><p class="section-sub">A growing suite of AI-native tools across productivity, security, media, and industry — click any product to learn how it works and who it's built for.</p></div>
+    <div class="reveal d2"><p class="section-sub">A growing suite of AI-native tools — including two complete platforms ready to deploy today, AI ERP and AI Hospital Management, plus focused AI tools for customer service, documents, security and industry. Click any product to see how it works and who it's for.</p></div>
   </div>
   <div class="prod-grid" id="prod-grid"></div>
 </section>
@@ -445,10 +453,21 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
     <h2 class="reveal d1">Let's build something<br/><b>worth building.</b></h2>
     <p class="reveal d2">Tell us what you're working on. We'll help you figure out whether AI is the right investment — and if it is, we'll build it properly.</p>
     <div class="cta-form-wrap reveal d3">
-      <form class="c-form" id="contact-form" action="https://formsubmit.co/asi360labs@gmail.com" method="POST">
+      <!--
+        FORM ENDPOINT
+        Replace the address below with your FormSubmit random string once you have it:
+          action="https://formsubmit.co/YOUR-RANDOM-STRING"
+        This keeps the inbox address out of the public page source.
+        Until then the address below works as-is.
+      -->
+      <form class="c-form" id="contact-form" action="https://formsubmit.co/74aa7d7486bf8e9fe84d183d2e51696b" method="POST">
         <input type="hidden" name="_subject" value="New inquiry from asi360labs.com">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="https://asi360labs.com/thank-you.html">
+        <!-- Phrases here cause the submission to be rejected. Keep it to
+             wording a real prospect would never use. Max ~20 phrases. -->
+        <input type="hidden" name="_blacklist" value="seo services, backlink, guest post, link building, increase your ranking, first page of google, rank higher on google, web design services at affordable, casino, we are a leading digital marketing">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
         <div class="c-row">
@@ -497,30 +516,22 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
   var status = document.getElementById('cf-status');
   var btn = document.getElementById('cf-submit');
   if(!form) return;
+  var sent = false;
   form.addEventListener('submit', function(e){
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    status.className = 'c-status';
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(function(res){
-      if(res.ok){
-        form.reset();
-        status.textContent = "Thanks for reaching out! We've received your message and will respond within 1 business day.";
-        status.className = 'c-status show ok';
-      } else {
-        throw new Error('Submission failed');
-      }
-    }).catch(function(){
-      status.textContent = "Something went wrong sending your message. Please email us directly at asi360labs@gmail.com.";
-      status.className = 'c-status show err';
-    }).finally(function(){
+    // Guard against double submission while the browser navigates.
+    if(sent){ e.preventDefault(); return; }
+    sent = true;
+    // Disable on the next tick — disabling synchronously can cancel the
+    // native form submission in some browsers.
+    setTimeout(function(){ btn.disabled = true; btn.textContent = 'Sending…'; }, 0);
+    status.textContent = 'Checking you are human, then sending your message…';
+    status.className = 'c-status show';
+    // Re-enable if the user comes back via the browser back button.
+    setTimeout(function(){
+      sent = false;
       btn.disabled = false;
       btn.textContent = 'Send Inquiry';
-    });
+    }, 15000);
   });
 })();
 </script>
@@ -561,11 +572,16 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
           <div class="modal-users" id="modal-users"></div>
         </div>
       </div>
+      <div class="modal-modules" id="modal-modules-wrap" style="display:none;">
+        <div class="modal-section-label">What's included</div>
+        <div class="modal-users" id="modal-modules"></div>
+      </div>
       <div class="modal-tags" id="modal-tags"></div>
     </div>
     <div class="modal-customize">
       <div class="modal-customize-label">Customizable for your needs</div>
       <div class="modal-customize-text" id="modal-customize"></div>
+      <button class="btn-primary modal-cta" id="modal-cta" onclick="contactAbout()">Talk to us about this</button>
     </div>
   </div>
 </div>
@@ -573,64 +589,68 @@ footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-
 <script>
 const products = [
   {
-    num:"01", icon:"🤖", name:"Cook Your Chatbot",
-    desc:"A business-ready AI chatbot that actually knows your business — not a generic assistant with your logo on it.",
-    tags:["Business AI","Custom Knowledge","Flexible Deployment"],
-    eyebrow:"Product 01 · Conversational AI",
-    how:"Most off-the-shelf chatbots give surface-level answers because they have no context about your business. This one is built around your products, processes, policies, and tone — so it responds like it actually belongs to your organisation. It can be deployed in the cloud, on your own servers, or fully on-device, depending on your data sensitivity and infrastructure needs.",
-    who:"Businesses that have deployed off-the-shelf chatbots and found them too shallow for real use. Teams who need an AI that genuinely understands their domain — not one that requires careful prompting every time to stay relevant.",
-    users:["Customer Support Teams","Sales Teams","HR Departments","Operations Teams","Enterprise IT"],
-    customize:"Configurable knowledge base, personality, escalation rules, and deployment model. Works across web, mobile, and internal tools. You decide what it knows, what it doesn't, and where it runs."
+    num:"01", icon:"📊", name:"AI ERP",
+    status:"Ready to deploy",
+    desc:"Run your whole business in one place — sales, purchases, stock, accounts and GST — with an AI you can simply ask how the business is doing.",
+    tags:["Ready to deploy","GST-ready","AI Assistant"],
+    eyebrow:"Product 01 · Business Operations",
+    how:"Every quote, order, invoice, purchase and stock movement flows through one system, and your books update automatically as you work — no double entry, no month-end scramble. GST is calculated on every invoice, and your GSTR-1, GSTR-3B and GSTR-9 are prepared from the same data. On top sits an AI assistant you talk to in plain language: ask “who owes us money?” or “what's running low?” and get the answer from your live numbers. It can also draft purchase orders and payment reminders for you — but nothing is saved or sent until a person approves it.",
+    who:"Growing Indian businesses that have outgrown spreadsheets and disconnected tools, and owners who want a clear picture of cash, stock and dues without waiting for someone to pull a report.",
+    users:["Business Owners","Accounts & Finance","Sales Teams","Purchase & Stores","Traders & Distributors","Manufacturers"],
+    modules:["Sales & invoicing","Purchase & vendors","Inventory & warehouses","Accounting & bank reconciliation","GST returns","AI business assistant","WhatsApp & voice"],
+    customize:"Ready to deploy today, and set up around how your business already works — your document formats, approval rules, user roles, and multiple companies under one login. We're adding new modules regularly, and can prioritise the ones your business needs next."
   },
   {
-    num:"02", icon:"📱", name:"Personal Assistant",
-    desc:"An AI assistant that actually knows your work — your files, your projects, your context — and answers questions about them in plain language.",
-    tags:["Work-aware AI","Private by Design","Natural Language"],
-    eyebrow:"Product 02 · Personal AI",
-    how:"Most AI assistants are built for general tasks — web searches, reminders, small talk. They have no awareness of your actual work, your documents, or your projects. This assistant is built around the information you choose to give it access to, so it can answer real questions about your own data in plain language. Deployment is flexible — fully local for sensitive environments, or cloud-assisted where speed matters more.",
-    who:"Professionals who spend too much time searching for information they already have. Anyone tired of a 'personal assistant' that can't answer a single question about their own work.",
-    users:["Executives","Lawyers","Researchers","Consultants","Knowledge Workers"],
-    customize:"You control what it has access to — which files, folders, and data sources. Works across document formats. Deployment model (local or cloud) is configurable based on your privacy requirements."
+    num:"02", icon:"🏥", name:"AI Hospital Management",
+    status:"Ready to deploy",
+    desc:"One system for the whole hospital — patients, beds, emergency, pharmacy, billing and insurance claims — with AI that takes the paperwork off your staff.",
+    tags:["Ready to deploy","Healthcare AI","Private by Design"],
+    eyebrow:"Product 02 · Healthcare Operations",
+    how:"From registration to discharge, every patient has one complete record — visits, notes, prescriptions, reports and bills. Staff see live bed availability, a colour-coded emergency board and a real-time OPD queue. AI handles the tedious work: it reads a photo of a supplier invoice and updates pharmacy stock, reads vendor email replies and updates purchase orders, helps draft discharge summaries, and answers questions like “how many ICU beds are free?” instantly. Insurance claims — cashless or reimbursement — are tracked end to end and flow straight into the final bill.",
+    who:"Hospitals, nursing homes and multi-specialty clinics running on paper registers or disconnected software, and administrators who want a live view of occupancy, revenue and pending claims.",
+    users:["Hospital Administrators","Doctors","Nursing Staff","Front Desk","Pharmacy","Billing & Insurance"],
+    modules:["Patient records","Appointments & OPD queue","Emergency triage","IPD, wards & bed map","Insurance claims","Pharmacy & purchasing","Billing","Live bedside vitals","AI assistant"],
+    customize:"Ready to deploy and configured to your hospital — departments, bed types, room rates and packages, and exactly what each role can see and do. Every hospital's data is kept completely separate, and the AI can run on a server inside your hospital so patient data never leaves your premises."
   },
   {
-    num:"03", icon:"🎙️", name:"MeetingScribe",
+    num:"03", icon:"🤖", name:"AI Business Assistant",
+    desc:"An AI assistant that actually knows your business — answering customers on your website, and helping your team find anything in your own documents.",
+    tags:["Business AI","Your Knowledge","Private by Design"],
+    eyebrow:"Product 03 · Conversational AI",
+    how:"Generic chatbots give generic answers because they know nothing about you. This assistant is built on your own products, policies, documents and tone of voice. Put it in front of customers to answer questions and capture enquiries around the clock. Or use it inside your team, so anyone can ask about your files, projects and processes and get a straight answer instead of digging through folders. Same assistant, same knowledge — you decide who it talks to and what it can see.",
+    who:"Businesses whose off-the-shelf chatbot turned out too shallow to be useful, and teams that lose hours every week searching for information they already have somewhere.",
+    users:["Customer Support","Sales Teams","HR Departments","Operations","Executives","Consultants"],
+    customize:"You control what it knows, what it can access and where it runs — fully on your own servers for sensitive data, or in the cloud where speed matters more. Set its tone, when it hands over to a human, and where it appears: your website, mobile app or internal tools."
+  },
+  {
+    num:"04", icon:"🎙️", name:"MeetingScribe",
     desc:"Run it during any meeting — online or in-person — and walk away with a clean transcript and a structured summary, automatically.",
     tags:["Meeting Intelligence","Auto-summary","Multilingual"],
-    eyebrow:"Product 03 · Meeting Intelligence",
+    eyebrow:"Product 04 · Meeting Intelligence",
     how:"Open the app, start your meeting, and let it run. Whether you're on a video call or sitting in a room, MeetingScribe captures the conversation and turns it into a structured summary — key decisions, action items, and discussion points — so you can stay present instead of taking notes. Works across languages and expands to new ones over time.",
     who:"Anyone who attends meetings and needs a reliable record of what was discussed and decided. Teams who spend time after meetings reconstructing what was agreed — or worse, disagreeing about it.",
     users:["Project Managers","Consultants","Leadership Teams","Sales Teams","Remote Teams"],
     customize:"Configurable summary structure — decisions, actions, open questions, or custom sections. Supports multiple speakers. Export to your preferred format. You choose where your data is stored."
   },
   {
-    num:"04", icon:"🛡️", name:"VulnScan",
+    num:"05", icon:"🛡️", name:"VulnScan",
     desc:"Scans your codebase dependencies for security vulnerabilities and generates a prioritised, AI-reasoned remediation plan.",
     tags:["DevSec","Dependency Audit","CVE Detection"],
-    eyebrow:"Product 04 · Security AI",
+    eyebrow:"Product 05 · Security AI",
     how:"Parses your dependency files across ecosystems (Python, Node, Java, etc.), cross-references known vulnerability databases, and uses an AI model to reason over the best upgrade path — weighing severity, compatibility risk, and breaking changes. Outputs a prioritised remediation report.",
     who:"Engineering teams, DevSecOps engineers, CTOs managing technical risk, and any organisation that ships software and wants to stay ahead of known security vulnerabilities.",
     users:["Engineering Teams","DevSecOps","CTOs","Security Auditors","Open Source Maintainers"],
     customize:"Configurable severity thresholds, ecosystem scope, and output format. Can be integrated into your CI/CD pipeline for automated scanning on every build."
   },
   {
-    num:"05", icon:"📄", name:"DocIntelligence",
+    num:"06", icon:"📄", name:"DocIntelligence",
     desc:"Extracts structured data from complex documents — invoices, contracts, forms, scanned PDFs — with high accuracy even on messy or irregular layouts.",
     tags:["Document AI","PDF & Vision","LLM-powered"],
-    eyebrow:"Product 05 · Document AI",
+    eyebrow:"Product 06 · Document AI",
     how:"Combines document vision with a language model to understand layout, context, and content together. Handles tables, headers, multi-column formats, handwriting, and noisy scans that standard extractors fail on. Outputs clean, structured data in your preferred format.",
     who:"Finance and operations teams processing high volumes of documents, legal firms handling contracts, logistics companies managing shipping documents, and any business drowning in manual data entry.",
     users:["Finance Teams","Legal Firms","Logistics Ops","HR Departments","Healthcare Admin"],
     customize:"Configurable extraction schema — tell it what fields to extract and how to structure the output. Supports custom document types specific to your industry or workflow."
-  },
-  {
-    num:"06", icon:"🎬", name:"VoiceDub",
-    desc:"Dubs video and audio content into multiple languages while preserving the original speaker's voice, tone, and emotion.",
-    tags:["Voice Cloning","Multilingual","Emotion Preservation"],
-    eyebrow:"Product 06 · Voice AI",
-    how:"Captures the speaker's vocal characteristics — timbre, pace, emotional inflection — and uses a voice synthesis model to render the translated script in the target language using the same voice profile. The result sounds like the original speaker, not a generic text-to-speech voice.",
-    who:"Content creators, e-learning platforms, media companies, corporate training teams, and organisations publishing video content for multilingual audiences.",
-    users:["Content Creators","E-learning Platforms","Media Companies","Corporate Training","Marketing Teams"],
-    customize:"Supports custom language pairs, configurable voice profiles, and batch processing for large content libraries. Output can be delivered as audio-only or merged back into the original video."
   },
   {
     num:"07", icon:"🧾", name:"QuotationGen",
@@ -668,7 +688,7 @@ function renderProducts() {
   const grid = document.getElementById('prod-grid');
   products.forEach((p, i) => {
     const delay = `d${i+1}`;
-    const tagsHtml = p.tags.map(t => `<span class="prod-tag${p.onDevice && t==='On-device'?' on':''}">${t}</span>`).join('');
+    const tagsHtml = p.tags.map(t => `<span class="prod-tag${(p.status && t===p.status) || (p.onDevice && t==='On-device')?' on':''}">${t}</span>`).join('');
     grid.innerHTML += `
       <div class="prod-card reveal ${delay}" onclick="openModal(${i})">
         <div class="prod-num">${p.num}</div>
@@ -697,9 +717,33 @@ function openModal(idx) {
   const usersEl = document.getElementById('modal-users');
   usersEl.innerHTML = p.users.map(u=>`<span class="modal-user-pill">${u}</span>`).join('');
   const tagsEl = document.getElementById('modal-tags');
-  tagsEl.innerHTML = p.tags.map(t=>`<span class="prod-tag">${t}</span>`).join('');
+  tagsEl.innerHTML = p.tags.map(t=>`<span class="prod-tag${p.status && t===p.status?' on':''}">${t}</span>`).join('');
+  const modWrap = document.getElementById('modal-modules-wrap');
+  if(p.modules && p.modules.length){
+    document.getElementById('modal-modules').innerHTML = p.modules.map(m=>`<span class="modal-module-pill">${m}</span>`).join('');
+    modWrap.style.display = '';
+  } else {
+    modWrap.style.display = 'none';
+  }
+  document.getElementById('modal-cta').textContent = p.status ? `Book a demo of ${p.name}` : `Talk to us about ${p.name}`;
+  currentProduct = p;
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow='hidden';
+}
+
+let currentProduct = null;
+function contactAbout() {
+  closeModalDirect();
+  const reason = document.getElementById('cf-reason');
+  const msg = document.getElementById('cf-message');
+  if(reason) reason.value = "I'm interested in a product";
+  if(msg && currentProduct && !msg.value.trim()){
+    msg.value = currentProduct.status
+      ? `Hi, I'd like to see a demo of ${currentProduct.name}. `
+      : `Hi, I'd like to know more about ${currentProduct.name}. `;
+  }
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{ if(msg){ msg.focus(); msg.setSelectionRange(msg.value.length, msg.value.length); } }, 700);
 }
 
 function closeModal(e) {

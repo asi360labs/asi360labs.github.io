@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Message received | ASI360 Labs</title>
+<meta name="description" content="Your message has been received by ASI360 Labs."/>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" type="image/png" href="assets/images/favicon-64.png"/>
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,400;0,700;0,900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#ffffff;--surface:#f6f5f2;--border:#e8e6e1;--border2:#d0cec9;--text:#0d0d0d;--muted:#9a9890;--muted2:#6b6965;--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'DM Mono',monospace;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);display:flex;flex-direction:column;min-height:100vh;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:64px;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;color:var(--text);flex-shrink:0;}
+.nav-logo-img{height:50px;width:auto;display:block;object-fit:contain;object-position:left center;}
+.nav-logo-text{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:0.08em;color:var(--text);display:none;}
+.nav-logo-text span{opacity:0.35;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--muted2);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:10rem 6vw 6rem;}
+.panel{max-width:560px;width:100%;border:1px solid var(--border);background:var(--surface);padding:3.2rem 2.8rem;}
+.panel h1{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,40px);line-height:1.15;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+.panel p{color:var(--muted2);font-size:15px;line-height:1.7;margin-bottom:1rem;}
+.panel p:last-of-type{margin-bottom:2.2rem;}
+.panel a.back{display:inline-block;background:var(--text);color:#fff;text-decoration:none;padding:14px 26px;font-size:12px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;transition:opacity 0.2s;}
+.panel a.back:hover{opacity:0.75;}
+.panel a.back:focus-visible,.nav-links a:focus-visible,.footer-links a:focus-visible{outline:2px solid var(--text);outline-offset:3px;}
+.reply{font-family:var(--mono);font-size:11px;color:var(--muted);border-top:1px solid var(--border2);padding-top:1.4rem;margin-top:2.2rem;line-height:1.8;}
+.reply a{color:var(--muted2);}
+
+footer{border-top:1px solid var(--border);padding:2.5rem 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
+.footer-logo{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text);letter-spacing:0.1em;}
+.footer-logo span{opacity:0.35;}
+.footer-text{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+
+@media(max-width:600px){
+  nav .nav-links{display:none;}
+  .nav-logo-img{height:38px;}
+  main{padding:8rem 5vw 4rem;}
+  .panel{padding:2.4rem 1.6rem;}
+  footer{flex-direction:column;gap:1rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="ASI360 Labs – Home">
+    <img
+      src="assets/images/logo-nav.png"
+      alt="ASI360 Labs Logo"
+      class="nav-logo-img"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+    />
+    <span class="nav-logo-text">ASI360<span> Labs</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#expertise">Expertise</a></li>
+    <li><a href="/#products">Products</a></li>
+    <li><a href="/#solutions">Solutions</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="panel">
+    <h1>Your message reached us.</h1>
+    <p>Thanks for getting in touch. We read every enquiry ourselves — no queue, no ticketing system — and you can expect a reply within one business day.</p>
+    <p>If your enquiry was about a specific product, it helps to have any context ready: what you are trying to solve, roughly how much data is involved, and where it currently lives.</p>
+    <a class="back" href="/">Back to site</a>
+    <div class="reply">
+      Sent something by mistake, or need to add detail?<br/>
+      Reply to our confirmation, or write to <a id="ty-email" href="#">us directly</a>.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">ASI360<span> Labs</span></div>
+  <div class="footer-text">© 2026 ASI360 Labs · All rights reserved</div>
+  <div class="footer-links">
+    <a href="/#contact">Contact</a>
+    <a href="https://www.linkedin.com/in/deepika-ss-asi360labs" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var u = "asi360labs", d = "gmail.com";
+  var el = document.getElementById('ty-email');
+  if(el){
+    el.href = "mailto:" + u + "@" + d;
+    el.textContent = u + "@" + d;
+  }
+})();
+</script>
+
+</body>
+</html>
